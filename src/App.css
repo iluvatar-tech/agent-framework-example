@@ -1,5 +1,117 @@
-.App {
+body {
+  background-color: #f0f2f5;
+  font-family: sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  width: 100%;
+}
+
+.chat-container {
+  width: calc(100% - 200px);
+  max-width: none;
+  height: 90vh;
+  margin-left: 100px;
+  margin-right: 100px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-header {
+  padding: 20px;
+  border-bottom: 1px solid #ddd;
+  background-color: #007bff;
+  color: white;
+  border-radius: 8px 8px 0 0;
   text-align: center;
+}
+
+.chat-header h2 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.chat-area {
+  flex-grow: 1;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.message-wrapper {
+  display: flex;
+  flex-direction: column;
+  max-width: 70%;
+}
+
+.message-wrapper.user {
+  align-self: flex-end;
+  align-items: flex-end;
+}
+
+.message-wrapper.ai {
+  align-self: flex-start;
+  align-items: flex-start;
+}
+
+.message {
+  padding: 10px 15px;
+  border-radius: 20px;
+  word-wrap: break-word;
+}
+
+.message-wrapper.user .message {
+  background-color: #007bff;
+  color: white;
+}
+
+.message-wrapper.ai .message {
+  background-color: #e9e9eb;
+  color: black;
+}
+
+.message-sender {
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-size: 12px;
+  color: #888;
+  padding: 0 10px;
+}
+
+.chat-message-bar {
+  display: flex;
+  padding: 20px;
+  border-top: 1px solid #ddd;
+}
+
+.chat-message-bar input {
+  flex-grow: 1;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  padding: 10px 15px;
+  font-size: 16px;
+}
+
+.chat-message-bar button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 20px;
+  margin-left: 10px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.chat-message-bar button:hover {
+  background-color: #0056b3;
 }
 
 .App-logo {
