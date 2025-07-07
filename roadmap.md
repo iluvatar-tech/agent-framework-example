@@ -1,5 +1,5 @@
 # Podcast Summarizer
-Ask the agent for the latest episode of any podcast and get a crisp one-page briefing with chapters, quotes, a sentiment meter, and optional follow-up reading links.
+Ask the agent questions about the latest episode of any given podcast.
 
 # Tools (3)
 1	FeedFetcher	
@@ -10,6 +10,9 @@ Apple iTunes search, for ex: https://itunes.apple.com/search?entity=podcast&term
 2	AudioGrabber	
 Downloads the chosen MP3/MP4 and turns the audio -> text. Use OpenAI Whisper API
 
-4	Summarizer/Analyst	
-Produces: TL;DR, chapter list, key quotes, sentiment. Do this via an LLM call with a system prompt template,
-and possible modulate response by user's initial query.
+3	Summarizer/Analyst	
+Answer's the user's original query.
+
+
+# Example: 
+Give me a crisp one-page briefing with chapters, quotes, sentiment on the latest FT News Briefing.

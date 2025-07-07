@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import ReactMarkdown from 'react-markdown';
 
 export interface Message {
   id: number;
@@ -69,7 +70,7 @@ const Main = () => {
           <div key={message.id} className={`message-wrapper ${message.sender}`}>
             <div className="message-sender">{message.sender === 'user' ? 'User' : 'Agent'}</div>
             <div className={`message`}>
-              {message.text}
+              <ReactMarkdown>{message.text}</ReactMarkdown>
             </div>
           </div>
         ))}

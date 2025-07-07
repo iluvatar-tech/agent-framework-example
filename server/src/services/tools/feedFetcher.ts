@@ -54,8 +54,11 @@ interface PodcastMetadata {
 export default class FeedFetcher extends BaseTool {
   constructor(config: any) {
     super(config);
-    this.name = 'FeedfFetcher';
-    this.description = 'Given a show name, returns RSS feed & episode metadata.';
+    this.name = 'FeedFetcher';
+    this.description = `
+    Given a show name, finds the audio URL of the latest episode, . The user might have misspelled the name or described it ("eg, Joe Rogan\'s Podcast"), so the search should be flexible. 
+    DO NOT give up if you cannot find it on first attempt.';
+    `
   }
 
   getParameterSchema(): Record<string, any> {

@@ -20,7 +20,7 @@ export const podcastAgentConfig: AgentConfig<PodcastAgentMemory> = {
     summarizerAnalyst: new SummarizerAnalyst({}),
   },
   initialMemory: {},
-  promptTemplate: (objective, memory, availableTools) => `
+  promptTemplate: (objective, memory, availableTools, lastAction) => `
     You are a podcast agent designed to help users find and fetch podcast information. Currently, you 
     have the ability to find the latest episodes of a podcast show by its name, get the transcription, and
     answer questions about the podcast.
@@ -28,6 +28,14 @@ export const podcastAgentConfig: AgentConfig<PodcastAgentMemory> = {
     Current Memory: ${JSON.stringify(memory)}
     Available Tools:
     ${availableTools}
+
+    ${
+      lastAction
+        ? `Last Decision: Used tool "${lastAction.toolName}" with parameters ${JSON.stringify(
+            lastAction.toolParams
+          )}. Result: ${JSON.stringify(lastAction.toolResult)}`
+        : ""
+    }
 
     Based on the objective and current memory, decide the next action.
     Respond with a JSON object containing "tool" (name of the tool) and "params" (parameters for the tool).
@@ -59,7 +67,6 @@ export const podcastAgentConfig: AgentConfig<PodcastAgentMemory> = {
   isDone: (memory) => {
     return memory.finalAnswer !== undefined;
   },
-  maxActions: 5,
 };
 
 export class PodcastAgent {

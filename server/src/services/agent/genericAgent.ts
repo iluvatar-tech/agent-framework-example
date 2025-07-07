@@ -1,5 +1,5 @@
 import { completion } from "litellm";
-import { AgentConfig } from "./config";
+import { AgentConfig, LastAction } from "./config";
 import BaseTool from "../tools/base";
 
 export class GenericAgent<T> {
@@ -7,19 +7,20 @@ export class GenericAgent<T> {
   private actionsTaken: number = 0;
   private tools: { [key: string]: BaseTool };
   private config: AgentConfig<T>;
-  private maxActions: number = 5;
+  private lastAction: LastAction | null = null;
 
   constructor(config: AgentConfig<T>) {
     this.config = config;
     this.tools = config.tools;
     this.memory = config.initialMemory;
-    this.maxActions = config.maxActions;
   }
 
   public async run(objective: string): Promise<T> {
     console.log(`Agent started with objective: "${objective}"`);
 
-    while (this.actionsTaken < this.maxActions) {
+    const MAX_ACTIONS = 5;
+
+    while (this.actionsTaken < MAX_ACTIONS) {
       this.actionsTaken++;
       console.log(`--- Action ${this.actionsTaken} ---`);
 
@@ -41,7 +42,8 @@ export class GenericAgent<T> {
       const prompt = this.config.promptTemplate(
         objective,
         this.memory,
-        availableTools
+        availableTools,
+        this.lastAction
       );
       console.log("Agent's internal prompt:\n", prompt);
 
@@ -82,11 +84,26 @@ export class GenericAgent<T> {
           const toolResult = await this.tools[toolToUse].execute(toolParams);
           console.log(`Tool ${toolToUse} executed. Result:`, toolResult);
           this.memory = this.config.updateMemory(toolToUse, toolResult, this.memory);
+          this.lastAction = {
+            toolName: toolToUse,
+            toolParams: toolParams,
+            toolResult: toolResult,
+          };
         } catch (error: any) {
           console.error(`Error executing tool ${toolToUse}:`, error.message);
+          this.lastAction = {
+            toolName: toolToUse,
+            toolParams: toolParams,
+            toolResult: `Error: ${error.message}`,
+          };
         }
       } else {
         console.log("Agent could not determine a tool to use.");
+        this.lastAction = {
+          toolName: "unknown",
+          toolParams: {},
+          toolResult: "Agent could not determine a tool to use. This should never happen.",
+        };
         break;
       }
     }
