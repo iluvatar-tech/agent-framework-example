@@ -2,7 +2,8 @@ import 'dotenv/config';
 
 import express from 'express';
 import cors from 'cors';
-import { PodcastAgent } from './services/agent/podcastAgent';
+// import { PodcastAgent } from './services/agent/podcastAgent';
+import { Agent } from './services/agent/agent';
 
 const app = express();
 
@@ -24,7 +25,7 @@ app.post('/agent/run', async (req, res) => {
       return res.status(400).json({ error: 'Objective is required' });
     }
     console.log('Received objective:', objective);
-    const agent = new PodcastAgent();
+    const agent = new Agent();
     const result = await agent.run(objective);
     res.json({ result });
   } catch (error) {
