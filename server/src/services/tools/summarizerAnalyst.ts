@@ -8,7 +8,7 @@ export default class SummarizerAnalyst extends BaseTool {
   constructor(config: any) {
     super(config);
     this.name = "summarizerAnalyst";
-    this.description = "Produces a summary, chapter list, key quotes, and sentiment based on the provided content. This is the final tool to be called by the agent when the answer is ready.";
+    this.description = "Answer the user's question. This is the final tool to be called by the agent when the answer is ready.";
   }
 
   /**
@@ -22,7 +22,7 @@ export default class SummarizerAnalyst extends BaseTool {
       properties: {
         finalAnswer: {
           type: "string",
-          description: "The complete and final answer to be presented to the user, including TL;DR, chapter list, key quotes, and sentiment.",
+          description: "The complete and final answer to be presented to the user.",
         },
       },
       required: ["finalAnswer"],

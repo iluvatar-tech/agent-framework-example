@@ -1,4 +1,4 @@
-import BaseTool, { ToolMetadata } from './base';
+import BaseTool from './base';
 import axios from 'axios';
 import * as fs from 'fs';
 import * as path from 'path';
